@@ -53,7 +53,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
     }
 
     isExpand = widget.controller.isExpand;
-    viewHeight = currentIndex == -1 ? 205 : 615;
+    viewHeight = 615;
     animation?.removeListener(animationListener);
     animation = Tween<double>(begin: 0, end: viewHeight)
         .animate(CurvedAnimation(parent: animationController!, curve: Curves.easeInOut))
@@ -77,22 +77,16 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
 
   @override
   Widget build(BuildContext context) {
+    final double bodyHeight = MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0);
+
     return Column(
       children: [
-        if (widget.controller.headerIndex >= 0)
-          Container(
-            color: Colors.black12,
-            width: MediaQuery.of(context).size.width,
-            height: animationViewHeight,
-            child: widget.filters,
-          ),
-        if (widget.controller.headerIndex < 0)
-          Container(
-            color: Colors.black12,
-            width: MediaQuery.of(context).size.width,
-            height: animationViewHeight,
-            child: widget.sorts,
-          ),
+        Container(
+          color: Colors.black12,
+          width: MediaQuery.of(context).size.width,
+          height: animationViewHeight,
+          child: widget.filters,
+        ),
         if (widget.controller.isExpand && viewHeight == animationViewHeight)
           GestureDetector(
             onTap: () {
@@ -100,10 +94,8 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: (currentIndex == -1
-                  ? (MediaQuery.of(context).size.height - 205)
-                  : (MediaQuery.of(context).size.height - 615)),
-              color: Colors.black12,
+              height: bodyHeight - animationViewHeight - 42,
+              color: Colors.grey.shade200,
             ),
           ),
       ],

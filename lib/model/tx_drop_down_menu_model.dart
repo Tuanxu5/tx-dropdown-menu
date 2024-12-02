@@ -15,6 +15,7 @@ class ListTitleFilter {
   final String name;
   final bool status;
   final int countFilter;
+
   const ListTitleFilter({required this.id, required this.name, required this.status, required this.countFilter});
 }
 

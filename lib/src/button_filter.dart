@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tx_dropdown_menu/model/tx_drop_down_menu_model.dart';
 
 class ButtonFilter extends StatelessWidget {
   const ButtonFilter({
@@ -7,12 +8,14 @@ class ButtonFilter extends StatelessWidget {
     required this.title,
     required this.status,
     required this.countFilter,
+    required this.listTitle,
   }) : super(key: key);
 
   final VoidCallback? onPressed;
   final String title;
   final bool status;
   final int countFilter;
+  final List<ListTitleFilter> listTitle;
 
   @override
   Widget build(BuildContext context) {

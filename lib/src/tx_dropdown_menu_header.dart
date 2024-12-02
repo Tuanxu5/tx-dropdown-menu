@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tx_dropdown_menu/controller/tx_drop_down_menu_controller.dart';
 import 'package:tx_dropdown_menu/model/tx_drop_down_menu_model.dart';
 import 'package:tx_dropdown_menu/src/button_filter.dart';
 
-import '../controller/tx_drop_down_menu_controller.dart';
-
 class TxDropdownMenuHeader extends StatefulWidget {
   final TxDropDownMenuController controller;
-
   final NullableIndexedWidgetBuilder? itemBuilder;
   final IndexedWidgetBuilder? dividerBuilder;
   final List<ListTitleFilter> listTitle;
@@ -124,7 +122,7 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
                     height: 18,
                     child: Text(
                       countFilterActive.toString(),
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                 ),
@@ -146,22 +144,13 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.listTitle.length,
                 itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return ButtonFilter(
-                      title: "sap xep",
-                      status: widget.listTitle[index].status,
-                      onPressed: () async {
-                        handleTapItem(-1);
-                      },
-                      countFilter: widget.listTitle[index].countFilter,
-                    );
-                  }
                   return ButtonFilter(
                     title: widget.listTitle[index].name,
                     status: widget.listTitle[index].status,
                     onPressed: () {
                       handleTapItem(index);
                     },
+                    listTitle: widget.listTitle,
                     countFilter: widget.listTitle[index].countFilter,
                   );
                 },
