@@ -13,10 +13,10 @@ class TxDropDownMenuHeaderStatus {
 class ListTitleFilter {
   final int id;
   final String name;
-  final bool status;
+
   final int countFilter;
 
-  const ListTitleFilter({required this.id, required this.name, required this.status, required this.countFilter});
+  const ListTitleFilter({required this.id, required this.name, required this.countFilter});
 }
 
 class TxDropDownMenuItem<T> {
