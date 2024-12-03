@@ -1,6 +1,6 @@
 name: tx_dropdown_menu
 description: A flutter package with a custom drop-down menu that supports iOS and Android.
-version: 0.0.1
+version: 1.0.0
 homepage: https://github.com/Tuanxu5/tx-dropdown-menu
 
 environment:
