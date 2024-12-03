@@ -8,12 +8,14 @@ class TxDropdownMenuHeader extends StatefulWidget {
   final List<TxDropDownMenuItem> items;
   final void Function(dynamic index) onScrollToIndex;
   final TxDropDownMenuController dropDownController;
+  final Color colorPrimary;
 
   const TxDropdownMenuHeader({
     super.key,
     required this.items,
     required this.onScrollToIndex,
     required this.dropDownController,
+    required this.colorPrimary,
   });
 
   @override
@@ -70,6 +72,7 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
               handleTapItem(index);
             },
             countFilter: widget.items[index].countFilter,
+            colorPrimary: widget.colorPrimary,
           );
         },
       ),

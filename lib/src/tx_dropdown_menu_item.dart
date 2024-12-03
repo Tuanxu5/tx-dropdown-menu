@@ -7,11 +7,13 @@ class TxDropdownMenuHeaderItem extends StatelessWidget {
     this.onPressed,
     required this.title,
     required this.countFilter,
+    required this.colorPrimary,
   }) : super(key: key);
 
   final VoidCallback? onPressed;
   final String title;
   final int countFilter;
+  final Color colorPrimary;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class TxDropdownMenuHeaderItem extends StatelessWidget {
               margin: EdgeInsets.only(right: countFilter > 0 ? 16.0 : 8.0),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: ColorData.colorPrimary,
+                  color: colorPrimary,
                   width: 1.0,
                 ),
                 borderRadius: BorderRadius.circular(16.0),
@@ -41,10 +43,10 @@ class TxDropdownMenuHeaderItem extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 13.0,
-                      color: ColorData.colorPrimary,
+                      color: colorPrimary,
                     ),
                   ),
                 ],
@@ -60,7 +62,7 @@ class TxDropdownMenuHeaderItem extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100.0),
-                    color: ColorData.colorPrimary,
+                    color: colorPrimary,
                   ),
                   child: Text(
                     countFilter > 9 ? "9+" : countFilter.toString(),

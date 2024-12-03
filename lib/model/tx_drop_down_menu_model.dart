@@ -30,7 +30,7 @@ class TxDropDownMenuAction {
   final int id;
   final String label;
   final TypeActionButton type;
-  final void Function() action;
+  final Function action;
 
   const TxDropDownMenuAction({
     required this.id,

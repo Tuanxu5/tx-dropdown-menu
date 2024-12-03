@@ -6,16 +6,21 @@ import 'package:tx_dropdown_menu/controller/tx_drop_down_menu_controller.dart';
 import 'package:tx_dropdown_menu/model/tx_drop_down_menu_model.dart';
 import 'package:tx_dropdown_menu/src/tx_dropdown_menu_header.dart';
 import 'package:tx_dropdown_menu/src/tx_dropdown_menu_view.dart';
+import 'package:tx_dropdown_menu/theme/theme_data.dart';
 
 class TxDropDownMenu extends StatefulWidget {
   const TxDropDownMenu({
     super.key,
     required this.items,
     required this.actionGroup,
+    this.colorPrimary = ColorData.colorPrimary,
+    this.viewHeight = 615.0,
   });
 
   final List<TxDropDownMenuItem> items;
   final List<TxDropDownMenuAction> actionGroup;
+  final Color colorPrimary;
+  final double viewHeight;
 
   @override
   State<TxDropDownMenu> createState() => _TxDropDownMenuState();
@@ -60,16 +65,18 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
         dropDownController: dropDownController,
         items: widget.items,
         onScrollToIndex: handleScrollToIndex,
+        colorPrimary: widget.colorPrimary,
       ),
       TxDropDownMenuView(
         dropDownController: dropDownController,
         currentIndexSelected: currentIndexSelected,
-        heightScreen: MediaQuery.of(context).size.height,
         controllerTitle: controllerTitle,
         items: widget.items,
         onScrollToIndex: handleScrollToIndex,
         controller: controller,
         actionGroup: widget.actionGroup,
+        colorPrimary: widget.colorPrimary,
+        viewHeight: widget.viewHeight,
       ),
     ]);
   }

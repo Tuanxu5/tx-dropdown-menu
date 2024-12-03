@@ -5,31 +5,27 @@ import 'package:tx_dropdown_menu/model/tx_drop_down_menu_model.dart';
 import 'package:tx_dropdown_menu/theme/theme_data.dart';
 
 class TxDropDownMenuView extends StatefulWidget {
-  final Widget? sorts;
-  final Duration animationDuration;
-  final double offsetY;
   final int? currentIndexSelected;
-  final double heightScreen;
   final List<TxDropDownMenuItem> items;
   final AutoScrollController controllerTitle;
   final void Function(dynamic index) onScrollToIndex;
   final AutoScrollController controller;
   final TxDropDownMenuController dropDownController;
   final List<TxDropDownMenuAction> actionGroup;
+  final Color colorPrimary;
+  final double viewHeight;
 
   const TxDropDownMenuView({
     super.key,
-    this.sorts,
-    this.animationDuration = const Duration(milliseconds: 150),
-    this.offsetY = 0.0,
     this.currentIndexSelected,
-    required this.heightScreen,
     required this.items,
     required this.controllerTitle,
     required this.onScrollToIndex,
     required this.controller,
     required this.dropDownController,
     required this.actionGroup,
+    required this.colorPrimary,
+    required this.viewHeight,
   });
 
   @override
@@ -52,7 +48,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
 
     animationController = AnimationController(
       vsync: this,
-      duration: widget.animationDuration,
+      duration: const Duration(milliseconds: 150),
     );
 
     animation = Tween<double>(begin: 0.0, end: 0.0).animate(
@@ -72,7 +68,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
 
     if (isExpand != widget.dropDownController.isExpand) {
       isExpand = widget.dropDownController.isExpand;
-      viewHeight = 615.0;
+      viewHeight = widget.viewHeight;
       animation?.removeListener(animationListener);
       final tween = Tween<double>(begin: 0.0, end: viewHeight);
       animation = tween.animate(
@@ -158,7 +154,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                                     border: Border(
                                       left: BorderSide(
                                         color: index == widget.currentIndexSelected
-                                            ? ColorData.colorPrimary
+                                            ? widget.colorPrimary
                                             : Colors.transparent,
                                         width: 2.5,
                                       ),
@@ -170,7 +166,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                                       fontWeight:
                                           index == widget.currentIndexSelected ? FontWeight.w600 : FontWeight.w500,
                                       color: index == widget.currentIndexSelected
-                                          ? ColorData.colorPrimary
+                                          ? widget.colorPrimary
                                           : ColorData.colorGrey,
                                     ),
                                   ),
@@ -185,7 +181,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                       flex: 10,
                       child: Container(
                         padding: const EdgeInsets.only(top: 16.0, bottom: 32.0, left: 12.0, right: 12.0),
-                        height: widget.heightScreen,
+                        height: MediaQuery.of(context).size.height,
                         decoration: const BoxDecoration(
                           color: ColorData.colorWhite,
                           borderRadius: BorderRadius.only(
@@ -245,10 +241,10 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: widget.actionGroup[i].type == TypeActionButton.primary
-                                    ? ColorData.colorPrimary
+                                    ? widget.colorPrimary
                                     : ColorData.colorWhite,
                                 border: Border.all(
-                                  color: ColorData.colorPrimary,
+                                  color: widget.colorPrimary,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(10.0),
@@ -262,7 +258,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                                   fontSize: 15.0,
                                   color: widget.actionGroup[i].type == TypeActionButton.primary
                                       ? ColorData.colorWhite
-                                      : ColorData.colorPrimary,
+                                      : widget.colorPrimary,
                                 ),
                               ),
                             ),
