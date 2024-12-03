@@ -55,37 +55,23 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 48,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
+      height: 40,
+      padding: const EdgeInsets.only(left: 12.0, right: 12.0),
       decoration: const BoxDecoration(
         color: ColorData.colorWhite,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(12),
-        ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            child: SizedBox(
-              height: 28,
-              width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return TxDropdownMenuHeaderItem(
-                    title: widget.items[index].title,
-                    onPressed: () {
-                      handleTapItem(index);
-                    },
-                    countFilter: widget.items[index].countFilter,
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.items.length,
+        itemBuilder: (BuildContext context, int index) {
+          return TxDropdownMenuHeaderItem(
+            title: widget.items[index].title,
+            onPressed: () {
+              handleTapItem(index);
+            },
+            countFilter: widget.items[index].countFilter,
+          );
+        },
       ),
     );
   }

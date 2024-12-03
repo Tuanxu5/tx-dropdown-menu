@@ -94,7 +94,7 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
         appBar: AppBar(
           backgroundColor: ColorData.colorPrimary,
           foregroundColor: ColorData.colorWhite,
-          title: const Text("Tx dropdown menu Demo"),
+          title: const Text("Tx dropdown menu demo"),
         ),
         body: TxDropDownMenu(
           context: context,
