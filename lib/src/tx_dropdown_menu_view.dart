@@ -10,12 +10,11 @@ class TxDropDownMenuView extends StatefulWidget {
   final double offsetY;
   final int? currentIndexSelected;
   final double heightScreen;
-  final List<ListTitleFilter> items;
+  final List<TxDropDownMenuItem> items;
   final AutoScrollController controllerTitle;
-  final void Function() onShowLoading;
   final void Function(dynamic index) onScrollToIndex;
-  final TxDropDownMenuController dropDownController;
   final AutoScrollController controller;
+  final TxDropDownMenuController dropDownController;
 
   const TxDropDownMenuView({
     super.key,
@@ -26,10 +25,9 @@ class TxDropDownMenuView extends StatefulWidget {
     required this.heightScreen,
     required this.items,
     required this.controllerTitle,
-    required this.onShowLoading,
     required this.onScrollToIndex,
-    required this.dropDownController,
     required this.controller,
+    required this.dropDownController,
   });
 
   @override
@@ -42,7 +40,6 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
   double viewHeight = 0;
   double animationViewHeight = 0;
   double animationSortHeight = 0;
-
   double maskHeight = 0;
   int currentIndex = 0;
   bool isExpand = false;
@@ -50,37 +47,49 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(dropDownListener);
+
     animationController = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
     );
-  }
 
-  void dropDownListener() async {
-    currentIndex = widget.dropDownController.headerIndex;
-    if (isExpand && widget.dropDownController.isExpand) {
-      await animationController?.reverse();
-      maskHeight = 0;
-    }
-
-    isExpand = widget.dropDownController.isExpand;
-    viewHeight = 615;
-    animation?.removeListener(animationListener);
-    animation = Tween<double>(begin: 0, end: viewHeight).animate(
+    animation = Tween<double>(begin: 0, end: 0).animate(
       CurvedAnimation(
         parent: animationController!,
         curve: Curves.easeInOut,
       ),
     )..addListener(animationListener);
-    if (isExpand) {
-      maskHeight = MediaQuery.of(context).size.height;
-      await animationController?.forward();
-    } else {
-      await animationController?.reverse();
-      maskHeight = 0;
+
+    widget.dropDownController.addListener(dropDownListener);
+  }
+
+  void dropDownListener() async {
+    if (!mounted) return;
+
+    currentIndex = widget.dropDownController.headerIndex;
+
+    if (isExpand != widget.dropDownController.isExpand) {
+      isExpand = widget.dropDownController.isExpand;
+      viewHeight = 615;
+      animation?.removeListener(animationListener);
+      final tween = Tween<double>(begin: 0, end: viewHeight);
+      animation = tween.animate(
+        CurvedAnimation(
+          parent: animationController!,
+          curve: Curves.easeInOut,
+        ),
+      )..addListener(animationListener);
+
+      if (isExpand) {
+        maskHeight = MediaQuery.of(context).size.height;
+        await animationController?.forward();
+      } else {
+        await animationController?.reverse();
+        maskHeight = 0;
+      }
+
+      if (mounted) setState(() {});
     }
-    if (mounted) setState(() {});
   }
 
   void animationListener() {
@@ -154,7 +163,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                                     ),
                                   ),
                                   child: Text(
-                                    widget.items[index].name,
+                                    widget.items[index].title,
                                     style: TextStyle(
                                       fontWeight:
                                           index == widget.currentIndexSelected ? FontWeight.w600 : FontWeight.w500,
@@ -173,7 +182,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                     Expanded(
                       flex: 10,
                       child: Container(
-                        padding: const EdgeInsets.only(top: 16, bottom: 65, left: 12, right: 12),
+                        padding: const EdgeInsets.only(top: 16, bottom: 32, left: 12, right: 12),
                         height: widget.heightScreen,
                         decoration: const BoxDecoration(
                           color: ColorData.colorWhite,
@@ -181,26 +190,20 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                             bottomRight: Radius.circular(16),
                           ),
                         ),
-                        child: SingleChildScrollView(
+                        child: ListView.builder(
                           controller: widget.controller,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              for (var i = 0; i < widget.items.length; i++)
-                                AutoScrollTag(
-                                  controller: widget.controller,
-                                  index: i,
-                                  key: ValueKey(i),
-                                  child: Container(
-                                    height: i * 100,
-                                    width: double.infinity,
-                                    child: Text("block$i"),
-                                  ),
-                                )
-                            ],
-                          ),
+                          itemCount: widget.items.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: AutoScrollTag(
+                                controller: widget.controller,
+                                index: index,
+                                key: ValueKey(index),
+                                child: widget.items[index].section,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -233,7 +236,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                       children: [
                         InkWell(
                           onTap: () {
-                            setState(() {});
+                            widget.dropDownController.hide();
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -294,7 +297,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: bodyHeight - animationViewHeight - 42,
+              height: bodyHeight - animationViewHeight - 48,
               color: Colors.grey.withOpacity(0.2),
             ),
           ),

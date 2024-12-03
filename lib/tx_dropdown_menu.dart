@@ -17,7 +17,7 @@ class TxDropDownMenu extends StatefulWidget {
 
   final BuildContext context;
   final double heightScreen;
-  final List<ListTitleFilter> items;
+  final List<TxDropDownMenuItem> items;
 
   @override
   State<TxDropDownMenu> createState() => _TxDropDownMenuState();
@@ -31,7 +31,6 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
   bool isInit = false;
   late AutoScrollController controller;
   late AutoScrollController controllerTitle;
-  OverlayEntry? _loadingOverlay;
 
   @override
   void initState() {
@@ -56,28 +55,11 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
     await controller.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
   }
 
-  void handleShowLoading() {
-    final overlay = Overlay.of(context);
-    _loadingOverlay = OverlayEntry(
-      builder: (context) => Positioned.fill(
-        child: Container(
-          color: Colors.black.withOpacity(0.1),
-          child: const Text("loading"),
-        ),
-      ),
-    );
-
-    overlay.insert(_loadingOverlay!);
-    setState(() {
-      isLoading = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       TxDropdownMenuHeader(
-        controller: dropDownController,
+        dropDownController: dropDownController,
         items: widget.items,
         onScrollToIndex: handleScrollToIndex,
       ),
@@ -89,7 +71,6 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
         items: widget.items,
         onScrollToIndex: handleScrollToIndex,
         controller: controller,
-        onShowLoading: handleShowLoading,
       ),
     ]);
   }

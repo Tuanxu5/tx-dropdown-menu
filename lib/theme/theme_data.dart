@@ -7,3 +7,11 @@ class ColorData {
   static const Color colorLight = Color(0xFFF4F6F8);
   static const Color colorWhite = Color(0xFFFFFFFF);
 }
+
+class StylesTextData {
+  static TextStyle headerTextStyle = const TextStyle(
+    fontSize: 32.0,
+    fontWeight: FontWeight.w600,
+    color: ColorData.colorPrimary,
+  );
+}

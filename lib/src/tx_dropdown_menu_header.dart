@@ -5,21 +5,15 @@ import 'package:tx_dropdown_menu/src/tx_dropdown_menu_item.dart';
 import 'package:tx_dropdown_menu/theme/theme_data.dart';
 
 class TxDropdownMenuHeader extends StatefulWidget {
-  final TxDropDownMenuController controller;
-  final NullableIndexedWidgetBuilder? itemBuilder;
-  final IndexedWidgetBuilder? dividerBuilder;
-  final List<ListTitleFilter> items;
+  final List<TxDropDownMenuItem> items;
   final void Function(dynamic index) onScrollToIndex;
-  final int? currentIndexSelected;
+  final TxDropDownMenuController dropDownController;
 
   const TxDropdownMenuHeader({
     super.key,
-    required this.controller,
-    this.itemBuilder,
-    this.dividerBuilder,
     required this.items,
     required this.onScrollToIndex,
-    this.currentIndexSelected,
+    required this.dropDownController,
   });
 
   @override
@@ -33,26 +27,24 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(dropDownListener);
+    widget.dropDownController.addListener(dropDownListener);
   }
 
   void dropDownListener() {
-    if (expand != widget.controller.isExpand) {
-      expand = widget.controller.isExpand;
+    if (expand != widget.dropDownController.isExpand) {
+      expand = widget.dropDownController.isExpand;
     }
-    if (mounted) setState(() {});
   }
 
   void handleTapItem(index) {
-    final statusToggle = widget.controller.isExpand;
+    final statusToggle = widget.dropDownController.isExpand;
     widget.onScrollToIndex(index);
-
     if (!statusToggle) {
-      widget.controller.show(index);
+      widget.dropDownController.show(index);
     }
 
     if (currentIndexExpand == index && statusToggle) {
-      widget.controller.hide();
+      widget.dropDownController.hide();
     }
 
     setState(() {
@@ -63,7 +55,7 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 42,
+      height: 48,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: const BoxDecoration(
         color: ColorData.colorWhite,
@@ -83,11 +75,10 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
                 itemCount: widget.items.length,
                 itemBuilder: (BuildContext context, int index) {
                   return TxDropdownMenuHeaderItem(
-                    title: widget.items[index].name,
+                    title: widget.items[index].title,
                     onPressed: () {
                       handleTapItem(index);
                     },
-                    listTitle: widget.items,
                     countFilter: widget.items[index].countFilter,
                   );
                 },

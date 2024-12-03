@@ -15,10 +15,73 @@ class TxDropdownMenuDemo extends StatefulWidget {
 }
 
 class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
-  List<ListTitleFilter> listMenuItems = [
-    const ListTitleFilter(id: 1, name: 'Items 1', countFilter: 5),
-    const ListTitleFilter(id: 2, name: 'Items 2', countFilter: 3),
-    const ListTitleFilter(id: 3, name: 'Items 3', countFilter: 8),
+  List<TxDropDownMenuItem> listMenuItems = [
+    TxDropDownMenuItem(
+      id: 1,
+      title: 'Items 1',
+      countFilter: 12,
+      section: Container(
+        height: 400,
+        alignment: Alignment.center,
+        color: const Color(0xFFF2F2F2),
+        child: const Text("Section1"),
+      ),
+    ),
+    TxDropDownMenuItem(
+      id: 2,
+      title: 'Items 2',
+      countFilter: 3,
+      section: Container(
+        height: 200,
+        alignment: Alignment.center,
+        color: const Color(0xFFF2F2F2),
+        child: const Text("Section2"),
+      ),
+    ),
+    TxDropDownMenuItem(
+      id: 3,
+      title: 'Items 3',
+      countFilter: 8,
+      section: Container(
+        height: 300,
+        alignment: Alignment.center,
+        color: const Color(0xFFF2F2F2),
+        child: const Text("Section3"),
+      ),
+    ),
+    TxDropDownMenuItem(
+      id: 3,
+      title: 'Items 4',
+      countFilter: 8,
+      section: Container(
+        height: 150,
+        alignment: Alignment.center,
+        color: const Color(0xFFF2F2F2),
+        child: const Text("Section4"),
+      ),
+    ),
+    TxDropDownMenuItem(
+      id: 3,
+      title: 'Items 5',
+      countFilter: 8,
+      section: Container(
+        height: 150,
+        alignment: Alignment.center,
+        color: const Color(0xFFF2F2F2),
+        child: const Text("Section5"),
+      ),
+    ),
+    TxDropDownMenuItem(
+      id: 3,
+      title: 'Items 6',
+      countFilter: 8,
+      section: Container(
+        height: 150,
+        alignment: Alignment.center,
+        color: const Color(0xFFF2F2F2),
+        child: const Text("Section6"),
+      ),
+    ),
   ];
 
   @override

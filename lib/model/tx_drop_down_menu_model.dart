@@ -10,43 +10,16 @@ class TxDropDownMenuHeaderStatus {
   bool highlight;
 }
 
-class ListTitleFilter {
+class TxDropDownMenuItem {
   final int id;
-  final String name;
-
+  final String title;
   final int countFilter;
+  final Widget section;
 
-  const ListTitleFilter({required this.id, required this.name, required this.countFilter});
-}
-
-class TxDropDownMenuItem<T> {
-  final String? text;
-  final Widget? icon;
-  final Widget? activeIcon;
-  final T? data;
-  bool check;
-
-  TxDropDownMenuItem({
-    this.text,
-    this.icon,
-    this.activeIcon,
-    this.data,
-    this.check = false,
+  const TxDropDownMenuItem({
+    required this.id,
+    required this.title,
+    required this.countFilter,
+    required this.section,
   });
-
-  TxDropDownMenuItem<T> copyWith({
-    String? text,
-    Widget? icon,
-    Widget? activeIcon,
-    T? data,
-    bool? check,
-  }) {
-    return TxDropDownMenuItem<T>(
-      text: text ?? this.text,
-      icon: icon ?? this.icon,
-      activeIcon: activeIcon ?? this.activeIcon,
-      data: data ?? this.data,
-      check: check ?? this.check,
-    );
-  }
 }
