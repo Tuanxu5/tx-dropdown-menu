@@ -113,7 +113,6 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
         body: TxDropDownMenu(
           items: listMenuItems,
           actionGroup: actionGroup,
-          viewHeight: 500.0,
         ),
       ),
     );
