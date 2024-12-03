@@ -10,14 +10,12 @@ import 'package:tx_dropdown_menu/src/tx_dropdown_menu_view.dart';
 class TxDropDownMenu extends StatefulWidget {
   const TxDropDownMenu({
     super.key,
-    required this.context,
-    required this.heightScreen,
     required this.items,
+    required this.actionGroup,
   });
 
-  final BuildContext context;
-  final double heightScreen;
   final List<TxDropDownMenuItem> items;
+  final List<TxDropDownMenuAction> actionGroup;
 
   @override
   State<TxDropDownMenu> createState() => _TxDropDownMenuState();
@@ -37,11 +35,11 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
     super.initState();
 
     controller = AutoScrollController(
-      viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+      viewportBoundaryGetter: () => Rect.fromLTRB(0.0, 0.0, 0.0, MediaQuery.of(context).padding.bottom),
       axis: Axis.vertical,
     );
     controllerTitle = AutoScrollController(
-      viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+      viewportBoundaryGetter: () => Rect.fromLTRB(0.0, 0.0, 0.0, MediaQuery.of(context).padding.bottom),
       axis: Axis.vertical,
     );
   }
@@ -66,11 +64,12 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
       TxDropDownMenuView(
         dropDownController: dropDownController,
         currentIndexSelected: currentIndexSelected,
-        heightScreen: widget.heightScreen,
+        heightScreen: MediaQuery.of(context).size.height,
         controllerTitle: controllerTitle,
         items: widget.items,
         onScrollToIndex: handleScrollToIndex,
         controller: controller,
+        actionGroup: widget.actionGroup,
       ),
     ]);
   }

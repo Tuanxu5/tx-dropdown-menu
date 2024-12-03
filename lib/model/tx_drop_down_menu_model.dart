@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+enum TypeActionButton { primary, secondary }
+
 class TxDropDownMenuHeaderStatus {
   TxDropDownMenuHeaderStatus({
     this.text = "",
@@ -21,5 +23,19 @@ class TxDropDownMenuItem {
     required this.title,
     required this.countFilter,
     required this.section,
+  });
+}
+
+class TxDropDownMenuAction {
+  final int id;
+  final String label;
+  final TypeActionButton type;
+  final void Function() action;
+
+  const TxDropDownMenuAction({
+    required this.id,
+    required this.label,
+    required this.type,
+    required this.action,
   });
 }

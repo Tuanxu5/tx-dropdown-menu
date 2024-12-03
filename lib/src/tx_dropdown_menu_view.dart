@@ -15,12 +15,13 @@ class TxDropDownMenuView extends StatefulWidget {
   final void Function(dynamic index) onScrollToIndex;
   final AutoScrollController controller;
   final TxDropDownMenuController dropDownController;
+  final List<TxDropDownMenuAction> actionGroup;
 
   const TxDropDownMenuView({
     super.key,
     this.sorts,
     this.animationDuration = const Duration(milliseconds: 150),
-    this.offsetY = 0,
+    this.offsetY = 0.0,
     this.currentIndexSelected,
     required this.heightScreen,
     required this.items,
@@ -28,6 +29,7 @@ class TxDropDownMenuView extends StatefulWidget {
     required this.onScrollToIndex,
     required this.controller,
     required this.dropDownController,
+    required this.actionGroup,
   });
 
   @override
@@ -37,10 +39,10 @@ class TxDropDownMenuView extends StatefulWidget {
 class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTickerProviderStateMixin {
   Animation<double>? animation;
   AnimationController? animationController;
-  double viewHeight = 0;
-  double animationViewHeight = 0;
-  double animationSortHeight = 0;
-  double maskHeight = 0;
+  double viewHeight = 0.0;
+  double animationViewHeight = 0.0;
+  double animationSortHeight = 0.0;
+  double maskHeight = 0.0;
   int currentIndex = 0;
   bool isExpand = false;
 
@@ -53,7 +55,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
       duration: widget.animationDuration,
     );
 
-    animation = Tween<double>(begin: 0, end: 0).animate(
+    animation = Tween<double>(begin: 0.0, end: 0.0).animate(
       CurvedAnimation(
         parent: animationController!,
         curve: Curves.easeInOut,
@@ -70,9 +72,9 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
 
     if (isExpand != widget.dropDownController.isExpand) {
       isExpand = widget.dropDownController.isExpand;
-      viewHeight = 615;
+      viewHeight = 615.0;
       animation?.removeListener(animationListener);
-      final tween = Tween<double>(begin: 0, end: viewHeight);
+      final tween = Tween<double>(begin: 0.0, end: viewHeight);
       animation = tween.animate(
         CurvedAnimation(
           parent: animationController!,
@@ -85,7 +87,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
         await animationController?.forward();
       } else {
         await animationController?.reverse();
-        maskHeight = 0;
+        maskHeight = 0.0;
       }
 
       if (mounted) setState(() {});
@@ -93,15 +95,15 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
   }
 
   void animationListener() {
-    animationViewHeight = animation?.value ?? 0;
-    animationSortHeight = animation?.value ?? 0;
+    animationViewHeight = animation?.value ?? 0.0;
+    animationSortHeight = animation?.value ?? 0.0;
 
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final double bodyHeight = MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0);
+    final double bodyHeight = MediaQuery.of(context).size.height - (Scaffold.of(context).appBarMaxHeight ?? 0.0);
 
     return Column(
       children: [
@@ -111,8 +113,8 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
           height: animationViewHeight,
           child: ClipRRect(
             borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16.0),
+              bottomRight: Radius.circular(16.0),
             ),
             child: Stack(
               clipBehavior: Clip.none,
@@ -124,7 +126,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                     Flexible(
                       flex: 5,
                       child: Container(
-                        padding: const EdgeInsets.only(top: 16, bottom: 65, left: 4, right: 12),
+                        padding: const EdgeInsets.only(top: 16.0, bottom: 65.0, left: 4.0, right: 12.0),
                         decoration: const BoxDecoration(
                           color: ColorData.colorLight,
                           borderRadius: BorderRadius.only(
@@ -145,12 +147,12 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                                 },
                                 child: Container(
                                   margin: const EdgeInsets.only(
-                                    left: 12,
-                                    bottom: 16,
+                                    left: 12.0,
+                                    bottom: 16.0,
                                   ),
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 10,
-                                    vertical: 6,
+                                    horizontal: 10.0,
+                                    vertical: 6.0,
                                   ),
                                   decoration: BoxDecoration(
                                     border: Border(
@@ -182,7 +184,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                     Expanded(
                       flex: 10,
                       child: Container(
-                        padding: const EdgeInsets.only(top: 16, bottom: 32, left: 12, right: 12),
+                        padding: const EdgeInsets.only(top: 16.0, bottom: 32.0, left: 12.0, right: 12.0),
                         height: widget.heightScreen,
                         decoration: const BoxDecoration(
                           color: ColorData.colorWhite,
@@ -210,19 +212,19 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                   ],
                 ),
                 Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
+                  bottom: 0.0,
+                  left: 0.0,
+                  right: 0.0,
                   child: Container(
-                    height: 65,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    height: 65.0,
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
                     decoration: BoxDecoration(
                       color: ColorData.colorWhite,
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                          offset: const Offset(0, 3),
+                          blurRadius: 10.0,
+                          spreadRadius: 5.0,
+                          offset: const Offset(0.0, 3.0),
                           color: ColorData.colorBlack.withOpacity(0.1),
                         )
                       ],
@@ -234,54 +236,37 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            widget.dropDownController.hide();
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorData.colorPrimary,
-                                width: 1,
+                        for (var i = 0; i < widget.actionGroup.length; i++)
+                          InkWell(
+                            onTap: () {
+                              widget.actionGroup[i].action.call();
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: widget.actionGroup[i].type == TypeActionButton.primary
+                                    ? ColorData.colorPrimary
+                                    : ColorData.colorWhite,
+                                border: Border.all(
+                                  color: ColorData.colorPrimary,
+                                  width: 1.0,
+                                ),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            child: const Text(
-                              "Cancel",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                                color: ColorData.colorPrimary,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: ColorData.colorPrimary,
-                                width: 1,
-                              ),
-                              color: ColorData.colorPrimary,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                            child: const Text(
-                              "Apply",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                                color: ColorData.colorWhite,
+                              margin: const EdgeInsets.only(left: 12.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                              child: Text(
+                                widget.actionGroup[i].label,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15.0,
+                                  color: widget.actionGroup[i].type == TypeActionButton.primary
+                                      ? ColorData.colorWhite
+                                      : ColorData.colorPrimary,
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -297,7 +282,7 @@ class _TxDropDownMenuViewState extends State<TxDropDownMenuView> with SingleTick
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: bodyHeight - animationViewHeight - 48,
+              height: bodyHeight - animationViewHeight - 48.0,
               color: Colors.grey.withOpacity(0.2),
             ),
           ),

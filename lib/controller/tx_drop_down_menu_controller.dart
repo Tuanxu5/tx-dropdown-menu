@@ -5,12 +5,12 @@ class TxDropDownMenuController extends ChangeNotifier {
   bool isExpand = false;
   int headerIndex = 0;
   List<TxDropDownMenuHeaderStatus> headerStatus = [];
-  double viewOffsetY = -1;
+  double viewOffsetY = -1.0;
 
   void show(int index, {double? offsetY}) {
     isExpand = true;
     headerIndex = index;
-    viewOffsetY = offsetY ?? -1;
+    viewOffsetY = offsetY ?? -1.0;
     notifyListeners();
   }
 
@@ -30,4 +30,3 @@ class TxDropDownMenuController extends ChangeNotifier {
     }
   }
 }
-

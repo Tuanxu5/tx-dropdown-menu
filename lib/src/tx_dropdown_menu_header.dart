@@ -55,7 +55,7 @@ class _TxDropdownMenuHeaderState extends State<TxDropdownMenuHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 40.0,
       padding: const EdgeInsets.only(left: 12.0, right: 12.0),
       decoration: const BoxDecoration(
         color: ColorData.colorWhite,

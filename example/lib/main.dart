@@ -21,7 +21,7 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
       title: 'Items 1',
       countFilter: 12,
       section: Container(
-        height: 400,
+        height: 400.0,
         alignment: Alignment.center,
         color: const Color(0xFFF2F2F2),
         child: const Text("Section1"),
@@ -32,7 +32,7 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
       title: 'Items 2',
       countFilter: 3,
       section: Container(
-        height: 200,
+        height: 200.0,
         alignment: Alignment.center,
         color: const Color(0xFFF2F2F2),
         child: const Text("Section2"),
@@ -43,40 +43,40 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
       title: 'Items 3',
       countFilter: 8,
       section: Container(
-        height: 300,
+        height: 300.0,
         alignment: Alignment.center,
         color: const Color(0xFFF2F2F2),
         child: const Text("Section3"),
       ),
     ),
     TxDropDownMenuItem(
-      id: 3,
+      id: 4,
       title: 'Items 4',
-      countFilter: 8,
+      countFilter: 0,
       section: Container(
-        height: 150,
+        height: 150.0,
         alignment: Alignment.center,
         color: const Color(0xFFF2F2F2),
         child: const Text("Section4"),
       ),
     ),
     TxDropDownMenuItem(
-      id: 3,
+      id: 5,
       title: 'Items 5',
       countFilter: 8,
       section: Container(
-        height: 150,
+        height: 150.0,
         alignment: Alignment.center,
         color: const Color(0xFFF2F2F2),
         child: const Text("Section5"),
       ),
     ),
     TxDropDownMenuItem(
-      id: 3,
+      id: 6,
       title: 'Items 6',
       countFilter: 8,
       section: Container(
-        height: 150,
+        height: 150.0,
         alignment: Alignment.center,
         color: const Color(0xFFF2F2F2),
         child: const Text("Section6"),
@@ -84,9 +84,23 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
     ),
   ];
 
+  List<TxDropDownMenuAction> actionGroup = [
+    TxDropDownMenuAction(
+      id: 1,
+      label: 'Cancel',
+      type: TypeActionButton.secondary,
+      action: () {},
+    ),
+    TxDropDownMenuAction(
+      id: 2,
+      label: 'Apply',
+      type: TypeActionButton.primary,
+      action: () {},
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final double heightScreen = MediaQuery.of(context).size.height;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -97,9 +111,8 @@ class _TxDropdownMenuDemoState extends State<TxDropdownMenuDemo> {
           title: const Text("Tx dropdown menu demo"),
         ),
         body: TxDropDownMenu(
-          context: context,
-          heightScreen: heightScreen,
           items: listMenuItems,
+          actionGroup: actionGroup,
         ),
       ),
     );
