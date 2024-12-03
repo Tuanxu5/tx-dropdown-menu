@@ -1,39 +1,63 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# tx_dropdown_menu
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+This is a Flutter custom powerful lightweight **drop-down filter menu** package, which supports iOS and Android.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+# Preview
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+<img src="./image/preview_image.png" height="860" align="center" style="max-width:100%;">
 
-## Features
+## 1、Add tx_dropdown_menu package
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Open the pubspec.yaml file
 
 ```dart
-const like = 'sample';
+  tx_dropdown_menu: ^1.0.0
 ```
 
-## Additional information
+After adding, open Terminal and execute flutter packages get
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+## 2. Use
+
+### TxDropDownMenuHeader
+
+**Please note that these parameters are not mandatory. I write them out just to let you know the powerful customization function. In fact, only the first three parameters are required**
+
+```dart
+TxDropdownMenuHeader(
+  dropDownController: dropDownController,
+  items: widget.items,
+  onScrollToIndex: handleScrollToIndex,
+  colorPrimary: widget.colorPrimary,
+),
+```
+
+### TxDropDownMenuView
+
+```dart
+TxDropDownMenuView(
+  dropDownController: dropDownController,
+  currentIndexSelected: currentIndexSelected,
+  controllerTitle: controllerTitle,
+  items: widget.items,
+  onScrollToIndex: handleScrollToIndex,
+  controller: controller,
+  actionGroup: widget.actionGroup,
+  colorPrimary: widget.colorPrimary,
+  viewHeight: widget.viewHeight,
+),
+```
+
+### Custom show/hide menu
+
+```dart
+final TxDropDownMenuController dropDownController = TxDropDownMenuController();
+
+//show menu
+dropDownController.show(index);
+
+//hide menu
+dropDownController.hide();
+
+//toggle menu
+dropDownController.toggle();
+```

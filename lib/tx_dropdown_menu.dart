@@ -62,11 +62,11 @@ class _TxDropDownMenuState extends State<TxDropDownMenu> with SingleTickerProvid
   Widget build(BuildContext context) {
     return Column(children: [
       TxDropdownMenuHeader(
-        dropDownController: dropDownController,
+       dropDownController: dropDownController,
         items: widget.items,
         onScrollToIndex: handleScrollToIndex,
         colorPrimary: widget.colorPrimary,
-      ),
+      ), 
       TxDropDownMenuView(
         dropDownController: dropDownController,
         currentIndexSelected: currentIndexSelected,
